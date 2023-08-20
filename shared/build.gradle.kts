@@ -28,7 +28,7 @@ tasks.all {
 
 tasks.create<Delete>("disableBootstrap") {
     mustRunAfter("prepareKotlinNativeBootstrap")
-    beforeEvaluate { File(projectDir, "build/platforms/native-desktop/bootstrap.kt").delete() }
+    afterEvaluate { File(buildDir, "platforms/native-desktop/bootstrap.kt").delete() }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
