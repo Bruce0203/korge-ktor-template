@@ -9,3 +9,5 @@ kproject("./deps")
 include(":shared")
 include(":client")
 include(":server")
+
+rootProject.name = "template"
