@@ -1,2 +1,3 @@
-#dependencies:
-#  - https://github.com/korlibs/korge-fleks/tree/main/fleks
+dependencies:
+#  - https://github.com/Bruce0203/korge-ext/tree/main/korge-ext
+  - https://github.com/korlibs/korge-fleks/tree/main/fleks

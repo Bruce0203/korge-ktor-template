@@ -13,7 +13,6 @@ import MainScene
 import currentUrl
 import scene
 import sessionUUID
-import ui.loadingMenu
 import util.launchNow
 
 var _websocketClient: WebSocketClient? = null
@@ -47,11 +46,7 @@ suspend inline fun <reified T> sendToServer(packet: Enum<*>, t: T) {
 }
 
 fun connectionBroke() {
-    val loading = scene.uiContainer { }
-    loading.loadingMenu("서버와의 연결이 예기치 않게 끊겼습니다", "서버 목록으로 돌아가기") {
-        loading.removeFromParent()
-        launchNow { scene.changeTo<MainScene>() }
-    }
+
 }
 
 

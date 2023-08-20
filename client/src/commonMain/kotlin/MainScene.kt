@@ -7,10 +7,6 @@ import korlibs.korge.style.*
 import korlibs.korge.ui.uiContainer
 import korlibs.korge.view.*
 import network.ServerClosedPacket
-import ui.createRoomMenu
-import ui.loadingMenu
-import ui.loginMenuView
-import ui.newCreateRoomMenu
 import util.ColorPalette
 import util.launchNow
 import util.transform
