@@ -1,6 +1,7 @@
 import korlibs.korge.gradle.KorgeGradlePlugin
 import korlibs.korge.gradle.korge
 import korlibs.korge.gradle.typedresources.GenerateTypedResourcesTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 apply<KorgeGradlePlugin>()
 apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
@@ -27,11 +28,11 @@ tasks.all {
 }
 
 tasks.create<Delete>("disableBootstrap") {
-    dependsOn(tasks.named("prepareKotlinNativeBootstrap"))
     afterEvaluate { File(buildDir, "platforms/native-desktop/bootstrap.kt").delete() }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    shouldRunAfter(tasks.getByName("disableBootstrap"))
     kotlinOptions {
         jvmTarget = "1.8"
     }
