@@ -1,7 +1,6 @@
 import korlibs.korge.gradle.KorgeGradlePlugin
 import korlibs.korge.gradle.Orientation
 import korlibs.korge.gradle.korge
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 apply<KorgeGradlePlugin>()
 apply(plugin = "org.jetbrains.kotlin.plugin.serialization")

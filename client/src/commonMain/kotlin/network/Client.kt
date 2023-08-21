@@ -11,16 +11,13 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.protobuf.*
 import io.ktor.websocket.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.protobuf.ProtoBuf
 import sessionId
 import username
 
 
 private var clientInst: HttpClient? = null
-suspend fun websocket(): WebSocketSession = client().webSocketSession(currentUrl.httpToWs())
-interface URLProvider { val url: String }
-interface ClientEngineFactory { fun getEngine(): HttpClientEngineFactory<HttpClientEngineConfig> }
-
 
 suspend inline fun <reified T> sendHttp(path: String, body: T, auth: Boolean = true) =
     client().post("$currentUrl/$path") {
@@ -36,7 +33,7 @@ suspend inline fun sendHttp(path: String, auth: Boolean = true) =
         if (auth) basicAuth(username, sessionId)
     }
 
-suspend fun client(): HttpClient = run {
+fun client(): HttpClient = run {
     if (clientInst == null) {
         initializeClient()
     }
@@ -44,12 +41,13 @@ suspend fun client(): HttpClient = run {
 }
 
 
-suspend fun initializeClient() = run {
+fun initializeClient() = run {
     clientInst = HttpClient(engine) {
         install(io.ktor.client.plugins.websocket.WebSockets) {
             contentConverter = converter
         }
         install(ContentNegotiation) {
+            @OptIn(ExperimentalSerializationApi::class)
             protobuf()
         }
     }

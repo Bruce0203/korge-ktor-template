@@ -27,7 +27,7 @@ tasks.all {
 }
 
 tasks.create<Delete>("disableBootstrap") {
-    mustRunAfter("prepareKotlinNativeBootstrap")
+    dependsOn(tasks.named("prepareKotlinNativeBootstrap"))
     afterEvaluate { File(buildDir, "platforms/native-desktop/bootstrap.kt").delete() }
 }
 

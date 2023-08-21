@@ -1,15 +1,11 @@
 import io.ktor.client.call.*
 import kotlinx.uuid.UUID
 import kotlinx.uuid.generateUUID
-import network.LoginRequest
-import network.LoginResult
-import network.LoginResultType
-import network.sendHttp
+import network.*
 
 var username: String = generateUsername()
 lateinit var sessionId: String
 lateinit var sessionUUID: UUID
-val usernameRegex = Regex("[ㄱ-ㅎ가-힣a-zA-Z0-9._]")
 private fun generateUsername() = UUID.generateUUID().toString().substring(0, 4)
 
 suspend fun login(loginRequest: LoginRequest = LoginRequest(username)): LoginResultType {
@@ -19,5 +15,6 @@ suspend fun login(loginRequest: LoginRequest = LoginRequest(username)): LoginRes
         sessionUUID = loginResult.uuid!!
         sessionId = sessionUUID.toString()
     }
+    runCatching { websocketClient().startWebSocket() }.getOrNull()?: return LoginResultType.SERVER_IS_NOT_AVAILABLE
     return loginResult.result
 }
